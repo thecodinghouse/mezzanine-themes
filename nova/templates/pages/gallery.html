@@ -1,0 +1,63 @@
+{% extends "pages/page.html" %}
+
+{% load mezzanine_tags staticfiles %}
+{% block all_content %}
+{{block.super}}
+<section id="{% block section_id %}content{% endblock %}" class="{% block section_class %}container{% endblock %}">
+	
+		<div class="row-fluid">
+{% block left_wrapper %}
+{% endblock %}
+
+<div class="span{% block main_col_size %}12{% endblock %} {% block main_class %}middle{% endblock %}">
+{% block main %}
+
+
+{% editable page.gallery.content %}
+{{ page.gallery.content|richtext_filters|safe }}
+{% endeditable %}
+
+
+{% with page.gallery.images.all as images %}
+				 <ul class="gallery col-4" >
+					{% for image in images %}
+						 
+						<li>
+                <div class="preview">
+                    <img alt="{{ image.description }}" src="{{ MEDIA_URL }}{{image.file}}">
+                    <div class="overlay">
+                    </div>
+                    <div class="links">
+                        <a href="#modal-1" data-toggle="modal"><i class="icon-eye-open"></i></a><a href="#"><i class="icon-link"></i></a>                                
+                    </div>
+                </div>
+                <div class="desc">
+                    <h5>{{ image.description }}</h5>
+                  
+                </div>
+                <div class="modal hide fade" id="modal-1">
+                    <a aria-hidden="true" data-dismiss="modal" href="javascript:;" class="close-modal"><i class="icon-remove"></i></a>
+                    <div class="modal-body">
+                        <img width="100%"  alt="{{ image.description }}" src="{{ MEDIA_URL }}{% thumbnail image.file 131 75 %}">
+                    </div>
+                </div>                 
+            </li> 
+						 
+				
+						<!-- End Item Project -->
+
+					{% endfor %}
+				</ul>
+	
+{% endwith %}
+
+{% endblock %}
+</div>
+
+
+{% block right_wrapper %}
+{% endblock %}
+</div>
+</section>
+{% endblock %}
+

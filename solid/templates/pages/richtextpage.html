@@ -1,0 +1,15 @@
+{% extends "pages/page.html" %}
+
+{% load mezzanine_tags %}
+{% block left_wrapper %}
+{% endblock %}
+<div class="col-md-{% block main_width %}12 {% endblock %} middle">
+{% block main %}{{ block.super }}
+</div>
+{% editable page.richtextpage.content %}
+{{ page.richtextpage.content|richtext_filters|safe }}
+{% endeditable %}
+
+{% endblock %}
+{% block right_wrapper %}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "pages/page.html" %}
+
+{% load mezzanine_tags staticfiles %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "mezzanine/css/magnific-popup.css" %}">
+{% endblock extra_css %}
+
+{% block main %}
+<section id="portfolio" class="container">
+{{ block.super }}
+
+{% editable page.gallery.content %}
+{{ page.gallery.content|richtext_filters|safe }}
+{% endeditable %}
+
+{% with page.gallery.images.all as images %}
+<ul class="portfolio-items col-3">
+			{% for image in images %}
+            <li class="portfolio-item apps">
+                <div class="item-inner">
+                    <img src="{{ image.file.url }}" alt="">
+                    <h5>{{ image.description }}</h5>
+                    <div class="overlay">
+                        <a class="preview btn btn-danger" href="{{ image.file.url }}" rel="prettyPhoto"><i class="icon-eye-open"></i></a>             
+                    </div>           
+                </div>           
+            </li><!--/.portfolio-item-->
+			{% endfor %}
+</ul>
+{% endwith %}
+</section>
+{% endblock %}
+
+

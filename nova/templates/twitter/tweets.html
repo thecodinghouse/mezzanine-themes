@@ -1,0 +1,36 @@
+
+{% load twitter_tags i18n %}
+
+{% tweets_default as tweets %}
+
+{% if tweets %}
+<div class="widget widget-popular">
+	<h3>{% trans "Recent Tweets" %}</h3>
+
+
+<div class="widget-blog-items">
+	  {% for tweet in tweets %}
+	<div class="widget-blog-item media">
+	    <div class="pull-left">
+			<img src="{{ tweet.profile_image_url|cut:"http:" }}" alt="{{ tweet.full_name }}">				
+         </div>
+		<div class="media-body">
+		<h4>{{ tweet.full_name }} <small><a href="http://twitter.com/{{ tweet.user_name }}" title="{{ tweet.full_name }}">@{{ tweet.user_name }}</a></small></h4>
+        {% if tweet.is_retweet %}
+        <h6><i class="icon-retweet"></i>
+        <a href="http://twitter.com/{{ tweet.retweeter_user_name }}" title="{{ tweet.retweeter_full_name }}">{{ tweet.retweeter_full_name }}</a></h6>
+        {% endif %}
+        <p>{{ tweet.text|safe }}<br>
+        <small class="timespan">
+        {% blocktrans with sometime=tweet.created_at|timesince %}{{ sometime }} ago{% endblocktrans %}
+        <a href="http://twitter.com/{{ tweet.user_name }}/status/{{ tweet.remote_id }}"><span class="glyphicon glyphicon-new-window"></span></a>
+        </small></p>
+		</div>
+		
+	</div>
+ {% endfor %}
+	
+
+</div>
+</div>
+{% endif %}

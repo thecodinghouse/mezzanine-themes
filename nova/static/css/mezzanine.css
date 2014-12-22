@@ -1,0 +1,478 @@
+
+/*========================================
+        MEZZANINE GENERAL STYLES
+==========================================*/
+
+body {
+  padding-top: 50px;
+  line-height: 165%;
+}
+h1 {
+  margin-bottom: 15px;
+}
+.alert {
+  padding: 5px 10px;
+}
+.alert-dismissable .close {
+  right: 0;
+}
+ul, ol {
+  padding-left:20px;
+}
+.tree {
+  padding: 5px 0;
+}
+.tree ul a {
+  padding: 7px 15px;
+}
+.navlist-menu-level-0 {
+  margin:-5px 0;
+}
+.navbar-text {
+  font-style: italic;
+  font-size: 11px;
+  color: #aaa !important;
+  line-height: 100%;
+  padding-top: 5px;
+  margin:15px 20px 0 5px;
+}
+.navbar-form.navbar-right {
+  padding-right: 0;
+  margin-right: -10px;
+}
+.navbar-form.navbar-right .form-group {
+  margin-right: 2px;
+}
+.messages {
+  margin-top: 20px;
+}
+.tree > .nav .nav > li {
+  padding-left: 15px;
+}
+.tree .active > a {
+  background-color: #EEEEEE;
+}
+.tree .active-branch > a {
+  font-weight: bold;
+}
+.breadcrumb > li + li:before {
+  padding: 0 5px 0 10px;
+}
+.nav-footer {
+  display: table;
+  margin: 0 auto;
+}
+.nav-footer > ul {
+  display: inline-block;
+  width: 120px;
+  margin-left: 50px;
+  vertical-align: top;
+}
+.nav-footer > ul > li {
+  padding: 10px 0;
+}
+footer {
+  background-color: #F8F8F8;
+  
+  padding: 15px 0 30px;
+}
+footer .separator {
+  opacity: 0.3;
+  margin: 0 10px;
+}
+.site-info {
+  font-size: 90%;
+  margin-top: 15px;
+}
+.panel-body > h1:first-child,
+.panel-body > h2:first-child,
+.panel-body > h3:first-child {
+  margin-top: 0;
+}
+img.pull-left {
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+.user-panel p {
+  margin-bottom:3px;
+}
+.user-panel .btn {
+  margin: 5px 5px 5px 0;
+}
+/* Style error messages as danger alerts */
+.alert-error {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #eed3d7;
+}
+.alert-error hr {
+  border-top-color: #e6c1c7;
+}
+.alert-error .alert-link {
+  color: #953b39;
+}
+.timespan {
+  color: #888;
+}
+#search-results h5 {
+  margin-top: 20px;
+}
+#search-results p {
+  margin: 3px 0;
+}
+
+/*========================================
+          MULTI-LEVEL DROP-DOWN NAV
+==========================================*/
+.nav > li > a.dropdown-toggle:hover{
+  background-color: #e7e7e7;
+  color: #555;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu > .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-top-left-radius: 0;
+}
+.dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+}
+.dropdown-submenu > a:after {
+  display: inline-block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 4px 0 4px 4px;
+  border-left-color: #777;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu > a:hover:after {
+  border-left-color: #333;
+}
+.dropdown-submenu.active > a:after {
+  border-left-color: #fff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left > .dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-top-right-radius: 0;
+}
+
+/*========================================
+            MEZZANINE BLOG
+==========================================*/
+
+.blog-list-detail {
+  border-bottom: 1px dashed #CCCCCC;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+}
+.post-meta {
+  font-weight: 700;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+.post-meta > a {
+  color: #666;
+}
+.share-facebook, .share-twitter,
+.share-facebook:hover, .share-twitter:hover {
+  color: #fff;
+  font-weight: 700;
+}
+.share-facebook {
+  background-color: #4667A6;
+}
+.share-twitter {
+  background-color: #00A3D4;
+}
+.tag-cloud li {
+  padding-left: 0;
+}
+.tag-weight-1 {
+  font-size: 90%;
+}
+.tag-weight-2 {
+  font-size: 120%;
+}
+.tag-weight-3 {
+  font-size: 150%;
+}
+.tag-weight-4 {
+  font-size: 180%;
+}
+
+/*========================================
+            MEZZANINE FORMS
+==========================================
+  These rules mirror the rules for .form-control included with
+  Bootstrap. They are needed because we can not directly apply
+  CSS classes to the form fields when rendering them in the template.
+  They also cover special cases for date and date/time inputs.
+*/
+
+.form-group > input[type="text"],
+.form-group > input[type="password"],
+.form-group > input[type="datetime"],
+.form-group > input[type="datetime-local"],
+.form-group > input[type="date"],
+.form-group > input[type="month"],
+.form-group > input[type="time"],
+.form-group > input[type="week"],
+.form-group > input[type="number"],
+.form-group > input[type="email"],
+.form-group > input[type="url"],
+.form-group > input[type="search"],
+.form-group > input[type="tel"],
+.form-group > input[type="color"],
+.form-group > select,
+.form-group > textarea {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #555555;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out.15s, box-shadow ease-in-out 0.15s;
+          transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+.form-group > input[type="text"]:focus,
+.form-group > input[type="password"]:focus,
+.form-group > input[type="datetime"]:focus,
+.form-group > input[type="datetime-local"]:focus,
+.form-group > input[type="date"]:focus,
+.form-group > input[type="month"]:focus,
+.form-group > input[type="time"]:focus,
+.form-group > input[type="week"]:focus,
+.form-group > input[type="number"]:focus,
+.form-group > input[type="email"]:focus,
+.form-group > input[type="url"]:focus,
+.form-group > input[type="search"]:focus,
+.form-group > input[type="tel"]:focus,
+.form-group > input[type="color"]:focus,
+.form-group > select:focus,
+.form-group > textarea:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.form-group > textarea {
+  height: auto;
+  max-width: 400px;
+}
+.has-error > input[type="text"],
+.has-error > input[type="password"],
+.has-error > input[type="datetime"],
+.has-error > input[type="datetime-local"],
+.has-error > input[type="date"],
+.has-error > input[type="month"],
+.has-error > input[type="time"],
+.has-error > input[type="week"],
+.has-error > input[type="number"],
+.has-error > input[type="email"],
+.has-error > input[type="url"],
+.has-error > input[type="search"],
+.has-error > input[type="tel"],
+.has-error > input[type="color"],
+.has-error > select,
+.has-error > textarea {
+  border-color: #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.has-error > input[type="text"]:focus,
+.has-error > input[type="password"]:focus,
+.has-error > input[type="datetime"]:focus,
+.has-error > input[type="datetime-local"]:focus,
+.has-error > input[type="date"]:focus,
+.has-error > input[type="month"]:focus,
+.has-error > input[type="time"]:focus,
+.has-error > input[type="week"]:focus,
+.has-error > input[type="number"]:focus,
+.has-error > input[type="email"]:focus,
+.has-error > input[type="url"]:focus,
+.has-error > input[type="search"]:focus,
+.has-error > input[type="tel"]:focus,
+.has-error > input[type="color"]:focus,
+.has-error > select:focus,
+.has-error > textarea:focus {
+  border-color: #843534;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+}
+.multiplechoicefield > ul, .choicefield > ul{
+  margin: 0;
+  padding: 0;
+}
+.multiplechoicefield > ul > li, .choicefield > ul > li{
+  list-style: none;
+  display: inline-block;
+}
+.multiplechoicefield > ul label, .choicefield > ul label {
+  display: inline-block;
+  padding-right: 20px;
+  margin-bottom: 0;
+  font-weight: normal;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.datefield, .datetimefield {
+  max-width: 450px;
+}
+.datefield > select {
+  display: inline-block;
+  width: 30%;
+  margin-right: 2%;
+}
+.datefield > label, .datefield > .help-block,
+.datetimefield > label, .datetimefield > .help-block {
+  display: block;
+}
+.datetimefield > select {
+  display: inline-block;
+  margin-right: 2%;
+  width: 22%;
+}
+.datetimefield > input[type="text"] {
+  display: inline-block;
+  width: 25%;
+}
+.form-actions {
+  background-color: #F8F8F8;
+  border-top: 1px solid #E7E7E7;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+/* We apply the clearfix hack to .form-actions because we often
+float the buttons inside it. This prevents collapsing. */
+.form-actions:before,
+.form-actions:after {
+  display: table;
+  content: " ";
+}
+
+.form-actions:after {
+  clear: both;
+}
+
+/*========================================
+          MEZZANINE GALLERY
+==========================================*/
+
+.gallery .thumbnail {
+  margin: 15px 0;
+}
+.gallery .thumbnail > img {
+  width: 100%;
+}
+
+/*========================================
+          MEZZANINE GENERIC
+==========================================*/
+
+#comments, .rating {
+  margin:20px 0;
+}
+.rating span, .rating form {
+  display: inline-block;
+}
+.rating ul {
+  padding-left: 0;
+  list-style: none;
+}
+.rating li {
+  display: inline-block;
+  margin: 0 5px;
+}
+.comment .rating {
+  margin-top: 5px;
+}
+.comment-author {
+  border: 1px solid #DDD;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  padding: 15px;
+  margin-bottom: 30px;
+  background-color: #FEFFEE;
+}
+
+/*========================================
+          MEZZANINE TWEETS
+==========================================*/
+
+.tweeter-image {
+  width: 32px;
+  height: 32px;
+}
+.tweet {
+  margin-bottom: 20px;
+}
+.tweet h4 {
+  margin-bottom:2px;
+  font-size:17px;
+}
+.tweet h4 small {
+  display:block;
+  line-height:150%;
+}
+.tweet p {
+  font-size:13px;
+  line-height:160%;
+}
+.tweet h6 {
+  margin:5px 0 10px 0;
+}
+.tweet .glyphicon {
+  margin:0 3px;
+}
+
+/*========================================
+          MEZZANINE ACCOUNTS
+==========================================*/
+
+.profile-image > img {
+  margin-bottom: 20px;
+}
+
+/*========================================
+          RESPONSIVE TWEAKS
+==========================================*/
+
+/* Display dropdowns on hover only in desktops (md and lg classes) */
+@media (min-width: 768px) {
+  .navbar-nav > li.dropdown:hover > ul.dropdown-menu {
+    display: block;
+  }
+}
+.tree {display:none;}
+@media (min-width: 992px) {
+  .tree {display:block;}
+}
+.navbar .container {width:100%;}
+@media (min-width: 992px) {
+  .navbar .container {width:970px;}
+}
+@media (min-width: 1200px) {
+  .navbar .container {width:1170px;}
+}

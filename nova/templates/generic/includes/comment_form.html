@@ -1,0 +1,36 @@
+{% load i18n mezzanine_tags comment_tags %}
+<div class="comment-form">
+
+<p class="muted">Make sure you enter the (*) required information where indicated. HTML code is not allowed.</p>
+	<form method="post" id="comment-form" action="{{ comment_url }}#comment">
+   
+	{% for hidden in comment_form.hidden_fields %}
+    {{ hidden }}
+    {% endfor %}
+	{% csrf_token %}
+    <div class="row-fluid">
+		<div class="span4">
+			 <input type="text" value="{{comment_form.name.value}}" name="name" maxlength="50" id="id_name" class="" placeholder="* Enter your full name" class="input-block-level">
+			  
+		</div>
+		<div class="span4">
+			 <input type="email" value="{{comment_form.email.value}}" name="email" id="id_email" placeholder="* Enter your email address" class="input-block-level">
+			
+		</div>
+		<div class="span4">
+			 <input type="url" value="b''" name="{{comment_form.url.value}}" id="id_url" placeholder="Enter your webiste" class="input-block-level">
+			
+		</div>
+		
+			 <textarea rows="10" name="comment"id="message" class="input-block-level" placeholder="* Enter Comment here..."></textarea>
+			
+		<p>
+			<button type="submit" class="btn btn-large btn-primary">{% trans "Comment" %}</button>
+				
+		</p>	
+		
+		
+	
+	</div>
+</form>
+</div>

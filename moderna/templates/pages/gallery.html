@@ -1,0 +1,56 @@
+{% extends "pages/page.html" %}
+
+{% load mezzanine_tags staticfiles %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "mezzanine/css/magnific-popup.css" %}">
+{% endblock extra_css %}
+{% block left_wrapper %}
+{% endblock %}
+<div class="col-md-{% block main_col_size %}12{% endblock %}">
+{% block main %}
+{{ block.super }}
+
+{% editable page.gallery.content %}
+{{ page.gallery.content|richtext_filters|safe }}
+{% endeditable %}
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="row">
+			<section id="projects">
+{% with page.gallery.images.all as images %}
+				 <ul class="portfolio" id="thumbs">
+					{% for image in images %}
+						 
+						<!-- Item Project and Filter Name -->
+						<li data-type="web" data-id="{{ image.id }}" class="col-lg-3 design">
+						<div class="item-thumbs">
+						<!-- Fancybox - Gallery Enabled - Title - Full Image -->
+						<a href="{{ image.file.url }}" title="{{ image.description }}" data-fancybox-group="gallery" class="hover-wrap fancybox">
+						<span class="overlay-img"></span>
+						<span class="overlay-img-thumb font-icon-plus"></span>
+						</a>
+						<!-- Thumb Image and Description -->
+						<img alt="{{ image.description }}" src="{{ MEDIA_URL }}{% thumbnail image.file 131 75 %}">
+						</div>
+						</li>
+					
+						<!-- End Item Project -->
+
+					{% endfor %}
+				</ul>
+			</section>
+		</div>		
+	</div>	
+{% endwith %}
+</div>
+{% endblock %}
+</div>
+{% block right_wrapper %}
+{% endblock %}
+{% block extra_js %}
+{{ block.super }}
+
+
+{% endblock %}

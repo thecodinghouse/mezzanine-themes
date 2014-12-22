@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}"{% if LANGUAGE_BIDI %} dir="rtl"{% endif %}>
+{% load pages_tags mezzanine_tags i18n future staticfiles %}
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+<meta name="description" content="{% block meta_description %}{% endblock %}">
+<title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}</title>
+<link rel="shortcut icon" href="{% static "img/favicon.ico" %}">
+
+{% ifinstalled mezzanine.blog %}
+<link rel="alternate" type="application/rss+xml" title="RSS" href="{% url "blog_post_feed" "rss" %}">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="{% url "blog_post_feed" "atom" %}">
+{% endifinstalled %}
+
+{% compress css %}
+	<link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+
+	<link rel="stylesheet" href="{% static "css/mezzanine.css" %}">
+    <link rel="stylesheet" href="{% static "css/bootstrap-responsive.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/main.css" %}">
+    <link rel="stylesheet" href="{% static "css/sl-slide.css" %}">
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="{% static "images/ico/favicon.ico" %}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static "images/ico/apple-touch-icon-144-precomposed.png" %}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static "images/ico/apple-touch-icon-114-precomposed.png " %}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static "images/ico/apple-touch-icon-72-precomposed.png" %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static "images/ico/apple-touch-icon-57-precomposed.png" %}">
+
+
+
+{% if LANGUAGE_BIDI %}
+<link rel="stylesheet" href="{% static "css/rtl.css" %}">
+{% endif %}
+{% ifinstalled cartridge.shop %}
+<link rel="stylesheet" href="{% static "css/cartridge.css" %}">
+{% if LANGUAGE_BIDI %}
+<link rel="stylesheet" href="{% static "css/cartridge.rtl.css" %}">
+{% endif %}
+{% endifinstalled %}
+{% block extra_css %}{% endblock %}
+{% endcompress %}
+
+<script src="{% static "js/vendor/modernizr-2.6.2-respond-1.1.0.min.js" %}"></script>
+
+{% compress js %}
+<script src="{% static "mezzanine/js/"|add:settings.JQUERY_FILENAME %}"></script>
+<script src="{% static "js/bootstrap.js" %}"></script>
+<script src="{% static "js/bootstrap-extras.js" %}"></script>
+{% block extra_js %}{% endblock %}
+{% include "includes/footer_scripts.html" %}
+{% endcompress %}
+
+<!--[if lt IE 9]>
+<script src="{% static "js/html5shiv.js" %}"></script>
+<script src="{% static "js/respond.min.js" %}"></script>
+<![endif]-->
+
+{% block extra_head %}{% endblock %}
+</head>
+
+<body id="{% block body_id %}body{% endblock %}">
+
+	<header class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+			     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+					
+			    <a id="logo" class="pull-left" href="index.html" alt"{% if settings.SITE_TITLE %}{{ settings.SITE_TITLE }}{% endif %}"></a>
+		<div class="nav-collapse collapse pull-right">
+			   {% page_menu "pages/menus/dropdown.html" %}
+		</div>
+		</div>
+		</div>
+	</header>
+{% block all_content %}
+
+
+{% block title_wrapper %}
+    <section class="title">
+        <div class="container">
+            <div class="row-fluid">
+                <div class="span6">
+                    <h1>{% block title %}{% endblock %}</h1>
+                </div>
+                <div class="span6">
+                    <ul class="breadcrumb pull-right">
+                       {% spaceless %}
+						{% block breadcrumb_menu %}{% page_menu "pages/menus/breadcrumb.html" %}{% endblock %}
+					   {% endspaceless %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / .title --> 
+{% endblock %}
+<section id="{% block section_id %}content{% endblock %}" class="{% block section_class %}{% endblock %}">
+	<div class="container">
+		<div class="row-fluid">
+		{% block left_wrapper %}
+			<div class="span{% block left_col_size %}2{% endblock %} {% block left_class %}left{% endblock %}">
+				{% block left_panel %}
+					<div class="panel panel-default tree">{% page_menu "pages/menus/tree.html" %}</div>
+				{% endblock %}
+			</div>
+		{% endblock %}
+	{% block main_wrapper %}
+
+		<div class="span{% block main_col_size %}7{% endblock %} {% block main_class %}middle{% endblock %}">
+			{% block main %}{% endblock %}
+		</div>
+{% endblock %}
+
+{% block right_wrapper %}
+
+<aside class="span{% block right_col_size %}3{% endblock %} {% block right_class %}right{% endblock %}">
+    {% nevercache %}
+    {% include "includes/user_panel.html" %}
+    {% endnevercache %}
+ 
+    {% block right_panel %}
+    {% ifinstalled mezzanine.twitter %}
+    {% include "twitter/tweets.html" %}
+    {% endifinstalled %}
+    {% endblock %}
+    
+	</aside>
+
+{% endblock %}
+</div>
+</div>
+</section>
+{% endblock %}
+
+<!--Bottom-->
+<section id="bottom" class="main">
+    <!--Container-->
+    <div class="container">
+
+        <!--row-fluids-->
+        <div class="row-fluid">
+
+            <!--Contact Form-->
+            <div class="span3">
+                <h4>ADDRESS</h4>
+                <ul class="unstyled address">
+                    <li>
+                        <i class="icon-home"></i><strong>Address:</strong> 1032 Wayback Lane, Wantagh<br>NY 11793
+                    </li>
+                    <li>
+                        <i class="icon-envelope"></i>
+                        <strong>Email: </strong> support@email.com
+                    </li>
+                    <li>
+                        <i class="icon-globe"></i>
+                        <strong>Website:</strong> www.domain.com
+                    </li>
+                    <li>
+                        <i class="icon-phone"></i>
+                        <strong>Toll Free:</strong> 631-409-3105
+                    </li>
+                </ul>
+            </div>
+            <!--End Contact Form-->
+
+            <!--Important Links-->
+            <div id="tweets" class="span6">
+			{% page_menu "pages/menus/footer.html" %}
+      
+            </div>
+            <!--End Archives-->
+
+            <div class="span3">
+                <h4>FLICKR GALLERY</h4>
+                <div class="row-fluid first">
+                    <ul class="thumbnails">
+                      <li class="span3">
+                        <a href="http://www.flickr.com/photos/76029035@N02/6829540293/" title="01 (254) by Victor1558, on Flickr"><img src="http://farm8.staticflickr.com/7003/6829540293_bd99363818_s.jpg" width="75" height="75" alt="01 (254)"></a>
+                    </li>
+                    <li class="span3">
+                        <a href="http://www.flickr.com/photos/76029035@N02/6829537417/" title="01 (196) by Victor1558, on Flickr"><img src="http://farm8.staticflickr.com/7013/6829537417_465d28e1db_s.jpg" width="75" height="75" alt="01 (196)"></a>
+                    </li>
+                    <li class="span3">
+                        <a href="http://www.flickr.com/photos/76029035@N02/6829527437/" title="01 (65) by Victor1558, on Flickr"><img src="http://farm8.staticflickr.com/7021/6829527437_88364c7ec4_s.jpg" width="75" height="75" alt="01 (65)"></a>
+                    </li>
+                    <li class="span3">
+                        <a href="http://www.flickr.com/photos/76029035@N02/6829524451/" title="01 (6) by Victor1558, on Flickr"><img src="http://farm8.staticflickr.com/7148/6829524451_a725793358_s.jpg" width="75" height="75" alt="01 (6)"></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row-fluid">
+                <ul class="thumbnails">
+                    <li class="span3">
+                        <a href="http://www.flickr.com/photos/76029035@N02/6829524451/" title="01 (6) by Victor1558, on Flickr"><img src="http://farm8.staticflickr.com/7148/6829524451_a725793358_s.jpg" width="75" height="75" alt="01 (6)"></a>
+                    </li>
+                    <li class="span3">
+                        <a href="http://www.flickr.com/photos/76029035@N02/6829540293/" title="01 (254) by Victor1558, on Flickr"><img src="http://farm8.staticflickr.com/7003/6829540293_bd99363818_s.jpg" width="75" height="75" alt="01 (254)"></a>
+                    </li>
+                    <li class="span3">
+                        <a href="http://www.flickr.com/photos/76029035@N02/6829537417/" title="01 (196) by Victor1558, on Flickr"><img src="http://farm8.staticflickr.com/7013/6829537417_465d28e1db_s.jpg" width="75" height="75" alt="01 (196)"></a>
+                    </li>
+                    <li class="span3">
+                        <a href="http://www.flickr.com/photos/76029035@N02/6829527437/" title="01 (65) by Victor1558, on Flickr"><img src="http://farm8.staticflickr.com/7021/6829527437_88364c7ec4_s.jpg" width="75" height="75" alt="01 (65)"></a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+    <!--/row-fluid-->
+</div>
+<!--/container-->
+
+</section>
+<!--/bottom-->
+<footer id="footer">
+
+<div class="container">
+        <div class="row-fluid">
+            <div class="span5 cp">
+                &copy; 2013  Template by <a target="_blank" href="http://shapebootstrap.net/" title="Free Twitter Bootstrap WordPress Themes and HTML templates">ShapeBootstrap</a>. Mezzanine theme by <a target="_blank" href="http://thecodinghouse.in/" title="Free Mezzanine CMS theme">CodingHouse</a>
+            </div>
+            <!--/Copyright-->
+
+            <div class="span6">
+                <ul class="social pull-right">
+                    <li><a href="#"><i class="icon-facebook"></i></a></li>
+                    <li><a href="#"><i class="icon-twitter"></i></a></li>
+                    <li><a href="#"><i class="icon-pinterest"></i></a></li>
+                    <li><a href="#"><i class="icon-linkedin"></i></a></li>
+                    <li><a href="#"><i class="icon-google-plus"></i></a></li>                       
+                    <li><a href="#"><i class="icon-youtube"></i></a></li>
+                    <li><a href="#"><i class="icon-tumblr"></i></a></li>                        
+                    <li><a href="#"><i class="icon-dribbble"></i></a></li>
+                    <li><a href="#"><i class="icon-rss"></i></a></li>
+                    <li><a href="#"><i class="icon-github-alt"></i></a></li>
+                    <li><a href="#"><i class="icon-instagram"></i></a></li>                   
+                </ul>
+            </div>
+
+            <div class="span1">
+                <a id="gototop" class="gototop pull-right" href="#"><i class="icon-angle-up"></i></a>
+            </div>
+            <!--/Goto Top-->
+        </div>
+    </div>
+</footer>
+
+{% compress js %}
+
+<script src="{% static "js/vendor/jquery-1.9.1.min.js"%}"></script>
+<script src="{% static "js/vendor/bootstrap.min.js"%}"></script>
+<script src="{% static "js/main.js"%}"></script>
+<!-- Required javascript files for Slider -->
+<script src="{% static "js/jquery.ba-cond.min.js"%}"></script>
+<script src="{% static "js/jquery.slitslider.js"%}"></script>
+<!-- /Required javascript files for Slider -->
+
+{% endcompress %}
+<!-- SL Slider -->
+<script type="text/javascript"> 
+$(function() {
+    var Page = (function() {
+
+        var $navArrows = $( '#nav-arrows' ),
+        slitslider = $( '#slider' ).slitslider( {
+            autoplay : true
+        } ),
+
+        init = function() {
+            initEvents();
+        },
+        initEvents = function() {
+            $navArrows.children( ':last' ).on( 'click', function() {
+                slitslider.next();
+                return false;
+            });
+
+            $navArrows.children( ':first' ).on( 'click', function() {
+                slitslider.previous();
+                return false;
+            });
+        };
+
+        return { init : init };
+
+    })();
+
+    Page.init();
+});
+</script>
+<!-- /SL Slider -->
+
+</body>
+</html>

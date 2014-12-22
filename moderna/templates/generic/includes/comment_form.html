@@ -1,0 +1,33 @@
+{% load i18n mezzanine_tags comment_tags %}
+
+<form method="post" id="contactform" action="{{ comment_url }}#comment">
+   
+	{% for hidden in comment_form.hidden_fields %}
+    {{ hidden }}
+    {% endfor %}
+    <div class="row">
+		<div class="col-lg-4 field">
+			 <input type="text" value="{{comment_form.name.value}}" name="name" maxlength="50" id="id_name" class="" placeholder="* Enter your full name" >
+			  
+		</div>
+		<div class="col-lg-4 field">
+			 <input type="email" value="{{comment_form.email.value}}" name="email" id="id_email" placeholder="* Enter your email address">
+			
+		</div>
+		<div class="col-lg-4 field">
+			 <input type="url" value="b''" name="{{comment_form.url.value}}" id="id_url" placeholder="Enter your webiste">
+			
+		</div>
+		<div class="col-lg-12 margintop10 field">
+			 <textarea rows="10" name="comment" id="id_comment" cols="40" class="" placeholder="* Enter Comment here..."></textarea>
+			
+		<p>
+			<button type="submit" class="btn btn-theme margintop10 pull-left">{% trans "Comment" %}</button>
+				<span class="pull-right margintop20">* Please fill all required form field, thanks!</span>
+		</p>	
+		</div>
+		
+	
+	</div>
+</form>
+

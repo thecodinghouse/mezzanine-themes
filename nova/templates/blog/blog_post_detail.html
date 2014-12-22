@@ -1,0 +1,129 @@
+{% extends "blog/blog_post_list.html" %}
+{% load mezzanine_tags comment_tags keyword_tags rating_tags i18n future disqus_tags %}
+
+{% block meta_title %}{{ blog_post.meta_title }}{% endblock %}
+
+{% block meta_keywords %}{% metablock %}
+{% keywords_for blog_post as tags %}
+{% for tag in tags %}{% if not forloop.first %}, {% endif %}{{ tag }}{% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ blog_post.description }}
+{% endmetablock %}{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
+
+{% block main %}
+	<div class="blog">
+	{% block blog_post_main%}
+		<div class="blog-item well">
+		{% block blog_post_list_post_title %}
+			{{block.super}}
+		{% endblock %}
+		 <div class="blog-meta clearfix">
+		{% block blog_post_list_post_metainfo %}
+			{{block.super}}
+		{% endblock %}
+		</div>
+		
+			<p>
+			{% if settings.BLOG_USE_FEATURED_IMAGE and blog_post.featured_image %}
+			{% block blog_post_list_post_featured_image %}
+				{{block.super}}
+			{% endblock %}
+			{% endif %}
+			</p>
+	
+		
+		{% block blog_post_list_post_content %}
+		
+			{% editable blog_post.content %}
+			{{ blog_post.content|richtext_filters|safe }}
+			{% endeditable %}
+		
+		{% endblock %}
+		{% block blog_post_detail_content %}
+		
+		{% endblock %}
+		
+		{% block read_more%}
+		
+		{% endblock %}
+		
+		{% block blog_post_detail_keywords %}
+			{% keywords_for blog_post as tags %}
+			{% if tags %}
+			
+			<div class="tag">
+			   
+				{% for tag in tags %}
+				<a href="{% url "blog_post_list_tag" tag.slug %}"> <span class="label label-success"> {{tag}} </span> </a> 
+				{% endfor %}
+			</div>
+		
+			{% endif %}
+		{% endblock %}
+		
+		{% block blog_post_detail_sharebuttons %}
+			{% set_short_url_for blog_post %}
+			<div class="author-meta">
+				<a href="http://facebook.com/sharer.php?u={{ request.build_absolute_uri }}&amp;t={{ blog_post.title|urlencode }}" class="btn btn-social btn-facebook"><i class="icon-facebook"></i></a>
+				<a href="http://twitter.com/home?status={{ blog_post.short_url|urlencode }}%20{{ blog_post.title|urlencode }}" class="btn btn-social btn-twitter"><i class="icon-twitter"></i></a> <a href="#" class="btn btn-social btn-linkedin"><i class="icon-linkedin"></i></a>
+			</div>
+		{% endblock %}
+		</div>
+	{% endblock %}	
+	</div>
+	
+	
+
+{% block blog_post_detail_rating %}
+<div class="panel panel-default rating">
+    <div class="panel-body">
+    {% rating_for blog_post %}
+    </div>
+</div>
+{% endblock %}
+
+
+
+{% block blog_post_previous_next %}
+<ul class="pager">
+{% with blog_post.get_previous_by_publish_date as previous %}
+{% if previous %}
+<li class="previous">
+    <a href="{{ previous.get_absolute_url }}"><i class="fa fa-arrow-left"></i> {{ previous }}</a>
+</li>
+{% endif %}
+{% endwith %}
+{% with blog_post.get_next_by_publish_date as next %}
+{% if next %}
+<li class="next">
+    <a href="{{ next.get_absolute_url }}">{{ next }} <i class="fa fa-arrow-right"></i>
+{% endif %}
+{% endwith %}
+</ul>
+{% endblock %}
+
+{% block blog_post_detail_related_posts %}
+{% if blog_post.related_posts.all %}
+<div id="related-posts">
+<h3>{% trans 'Related posts' %}</h3>
+<ul class="list-unstyled">
+{% for post in blog_post.related_posts.all %}
+     <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+{% endfor %}
+</ul>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block blog_post_detail_comments %}
+{% if blog_post.allow_comments %}{% comments_for blog_post %}{% endif %}
+{% endblock %}
+
+{% endblock %}

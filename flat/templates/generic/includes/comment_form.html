@@ -1,0 +1,28 @@
+{% load i18n mezzanine_tags comment_tags %}
+
+<form method="post" id="contactform" action="{{ comment_url }}#comment" class="form-horizontal" role="form">
+   {% csrf_token %}
+	{% for hidden in comment_form.hidden_fields %}
+    {{ hidden }}
+    {% endfor %}
+	
+	<div class="form-group">
+		<div class="col-sm-4">
+			<input type="text" value="{{comment_form.name.value}}" name="name" id="id_name"  placeholder="* Enter your full name" class="form-control" >
+		</div>
+		<div class="col-sm-4">
+			<input type="email" value="{{comment_form.email.value}}" name="email" id="id_email" placeholder="* Enter your email address" class="form-control">
+		</div>
+		<div class="col-sm-4">
+		   <input type="url" value="" name="{{comment_form.url.value}}" id="id_url" placeholder="Enter your webiste" class="form-control">
+		</div> 
+    </div>
+	<div class="form-group">
+		<div class="col-sm-12">
+			
+			<textarea rows="8" name="comment" id="id_comment"  class="form-control" placeholder="* Enter Comment here..."></textarea>
+		</div>
+    </div>
+	<button class="btn btn-danger btn-lg" type="submit">Submit Comment</button>
+</form>
+

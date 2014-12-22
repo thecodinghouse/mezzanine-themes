@@ -1,0 +1,45 @@
+{% extends "pages/page.html" %}
+
+{% load mezzanine_tags staticfiles %}
+
+
+
+{% block left_wrapper%}
+{% endblock %}
+
+{% block main %}
+{{ block.super }}
+
+{% editable page.gallery.content %}
+{{ page.gallery.content|richtext_filters|safe }}
+{% endeditable %}
+
+<div id="portfoliowrap">
+        <div class="portfolio-centered">
+            <div class="recentitems portfolio">
+			    {% with page.gallery.images.all as images %}
+				{% for image in images %}
+				<div class="portfolio-item graphic-design">
+					<div class="he-wrap tpl6">
+					<img src="{{ MEDIA_URL }}{% thumbnail image.file 600 450 %}" alt="">
+						<div class="he-view">
+							<div class="bg a0" data-animate="fadeIn">
+                                <h3 class="a1" data-animate="fadeInDown">A Graphic Design Item</h3>
+                                <a data-rel="prettyPhoto" href="{{ MEDIA_URL }}{% thumbnail image.file 600 450 %}" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-search"></i></a>
+                                <a href="#" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-link"></i></a>
+                        	</div><!-- he bg -->
+						</div><!-- he view -->		
+					</div><!-- he wrap -->
+				</div><!-- end col-12 -->
+               {% endfor %}
+			   {% endwith %}
+			</div>
+		</div>
+</div>	
+
+
+{% endblock %}
+
+{% block right_wrapper%}
+{% endblock %}
+

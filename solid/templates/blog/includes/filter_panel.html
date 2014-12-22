@@ -1,0 +1,114 @@
+{% load blog_tags keyword_tags i18n future mezzanine_tags%}
+
+{% block blog_recent_posts %}
+{% blog_recent_posts 5 as recent_posts %}
+{% if recent_posts %}
+<h4>{% trans "Recent Posts" %}</h4>
+<div class="hline"></div>
+<ul class="popular-posts">
+{% for recent_post in recent_posts %}
+<li>
+	
+	{% if settings.BLOG_USE_FEATURED_IMAGE and recent_post.featured_image %}
+{% block blog_post_list_post_featured_image %}
+
+<a href="{{ recent_post.get_absolute_url }}">
+    <img  src="{{ MEDIA_URL }}{% thumbnail recent_post.featured_image 70 70 %}">
+</a>
+
+{% endblock %}
+{% endif %}
+<p>
+	<a href="{{ recent_post.get_absolute_url }}"
+    >{{ recent_post.title }}</a>
+    </p>
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
+
+{% block blog_months %}
+{% blog_months as months %}
+{% if months %}
+<div class="spacing"></div>
+<h4>{% trans "Archive" %}</h4>
+<div class="hline"></div>
+{% for month in months %}
+    {% ifchanged month.date.year %}
+        {% if not forloop.first %}</ul>{% endif %}
+        <h6>{{ month.date.year }}</h6><ul class="list-unstyled">
+    {% endifchanged %}
+    <li><a href="{% url "blog_post_list_month" year=month.date.year month=month.date.month %}"
+        >{{ month.date|date:"F" }}</a> ({{ month.post_count }})</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
+<div class="spacing"></div>
+{% block blog_categories %}
+{% blog_categories as categories %}
+{% if categories %}
+<h4>{% trans "Categories" %}</h4>
+<div class="hline"></div>
+
+{% for category in categories %}
+<p><a href="{% url "blog_post_list_category" category.slug %}"><i class="fa fa-angle-right"></i> {{ category }}</a> <span class="badge badge-theme pull-right">{{ category.post_count }}</span></p>
+{% endfor %}
+
+
+{% endif %}
+{% endblock %}
+
+{% block blog_keywords %}
+{% keywords_for blog.blogpost as tags %}
+{% if tags %}
+<div class="spacing"></div>
+<h4>{% trans "Tags" %}</h4>
+<div class="hline"></div>
+
+<p>
+{% for tag in tags %}
+    
+    <a role="button" href="{% url "blog_post_list_tag" tag.slug %}" class="btn btn-theme">{{ tag }}({{ tag.item_count }})</a>
+
+{% endfor %}
+</p>
+{% endif %}
+{% endblock %}
+
+{% block blog_authors %}
+{% blog_authors as authors %}
+{% if authors %}
+<div class="spacing"></div>
+<h4>{% trans "Authors" %}</h4>
+<div class="hline"></div>
+<p>
+{% for author in authors %}
+    <a href="{% url "blog_post_list_author" author.username %}"
+        ><i class="fa fa-angle-right"></i> {{ author.get_full_name|default:author.username }}</a>
+        ({{ author.post_count }})
+{% endfor %}
+</p>
+{% endif %}
+{% endblock %}
+
+{% block blog_feeds %}
+<h3>{% trans "Feeds" %}</h3>
+{% if tag %}
+    <a href="{% url "blog_post_feed_tag" tag.slug "rss" %}">{% trans "RSS" %}</a> /
+    <a href="{% url "blog_post_feed_tag" tag.slug "atom" %}">{% trans "Atom" %}</a>
+{% endif %}
+{% if category %}
+    <a href="{% url "blog_post_feed_category" category.slug "rss" %}">{% trans "RSS" %}</a> /
+    <a href="{% url "blog_post_feed_category" category.slug "atom" %}">{% trans "Atom" %}</a>
+{% endif %}
+{% if author %}
+    <a href="{% url "blog_post_feed_author" author.username "rss" %}">{% trans "RSS" %}</a> /
+    <a href="{% url "blog_post_feed_author" author.username "atom" %}">{% trans "Atom" %}</a>
+{% endif %}
+{% if not tag and not category and not author %}
+    <a href="{% url "blog_post_feed" "rss" %}">{% trans "RSS" %}</a> /
+    <a href="{% url "blog_post_feed" "atom" %}">{% trans "Atom" %}</a>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n mezzanine_tags %}
+
+{% block meta_title %}{{ title }}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
+{% block body_id %}account{% endblock %}
+
+{% block breadcrumb_menu %}
+{{ block.super }}
+<li>{{ title }}</li>
+{% endblock %}
+
+{% block main %}
+
+{% errors_for form %}
+
+<form method="post"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} role="form" class="center">
+    <fieldset class="registration-form">
+    
+    {% fields_for form %}
+   
+    <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-md btn-block">{{ title }}</button>
+                     {% block account_form_actions %}
+        
+        {% endblock %}
+                </div>
+    </fieldset>
+</form>
+
+
+
+{% endblock %}

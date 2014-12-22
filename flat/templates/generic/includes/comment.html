@@ -1,0 +1,97 @@
+{% load i18n mezzanine_tags comment_tags rating_tags %}
+
+{% for comment in comments_for_thread %}
+
+<div id="comment-{{ comment.id }}"
+    class="comment media{% if comment.by_author %} comment-author{% endif %}">
+	
+    {% editable comment.is_public comment.is_removed %}
+    {% if not comment.is_removed and comment.is_public or request.user.is_staff %}
+    {% if comment.url %}
+       <div class="pull-left">
+											   
+											
+		<a href="{{ comment.url }}">
+			<img class="avatar img-circle" src="{% gravatar_url comment.email %}">
+		</a>
+    </div>
+    <div class="media-body">
+		<div class="well">
+        
+        <div class="media-heading">
+                <strong><a href="{{ comment.url }}">{{ comment.user_name }}</a></strong>&nbsp; 
+                <small>{% blocktrans with sometime=comment.submit_date|timesince %}{{ sometime }} ago{% endblocktrans %}</small>
+                     {% if not comment.is_removed and comment.is_public %}
+                      <a href="#reply-{{ comment.id }}" class="pull-right reply"><i class="icon-repeat"></i> {% trans "Reply" %}</a>
+                     
+                       {% endif %}
+         </div>
+    {% else %}
+    <div class="pull-left">
+											   
+											
+		<a href="{{ comment.url }}">
+			<img class="avatar img-circle" src="{% gravatar_url comment.email %}">
+		</a>
+    </div>
+    <div class="media-body">
+		<div class="well"> 
+        <div class="media-heading">
+                <strong><a href="{{ comment.url }}">{{ comment.user_name }}</a></strong>&nbsp; 
+                
+    {% endif %}
+           <small>{% blocktrans with sometime=comment.submit_date|timesince %}{{ sometime }} ago{% endblocktrans %}</small>
+                     {% if not comment.is_removed and comment.is_public %}
+                      <a href="#reply-{{ comment.id }}" class="pull-right reply"><i class="icon-repeat"></i> {% trans "Reply" %}</a>
+                     
+                       {% endif %}
+         </div>
+    <p>{{ comment.comment|comment_filter }}</p>
+    {% endif %}
+    
+    {% if not comment.is_removed and comment.is_public %}
+    <a href="{{ request.path }}#comment-{{ comment.id }}">
+        <span class="glyphicon glyphicon-link"></span> {% trans "Link" %}
+    </a> 
+    
+    {% if settings.COMMENTS_USE_RATINGS %}
+    <div class="rating">
+    {% rating_for comment %}
+    </div>
+    {% endif %}
+    </div>
+    <form class="comment-reply-form" method="post" id="reply-{{ comment.id }}"
+        action="{{ comment_url }}#reply-{{ comment.id }}"
+        {% if replied_to != comment.id %}style="display:none;"{% endif %}>
+        {% if replied_to == comment.id %}
+        {% fields_for posted_comment_form %}
+        {% else %}
+        {% fields_for unposted_comment_form %}
+        {% endif %}
+        <input type="hidden" name="replied_to" value="{{ comment.id }}">
+        <input class="btn btn-primary btn-lg" type="submit" value="{% trans "Reply" %}">
+    </form>
+
+    {% else %}
+    <p>
+        {% if comment.is_removed %}
+        <span class="glyphicon glyphicon-remove-circle"></span> {% trans "Comment deleted" %}
+        {% else %}
+        <span class="glyphicon glyphicon-warning-sign"></span> {% trans "Comment awaiting approval" %}
+        {% endif %}
+        <small class="timespan">{% blocktrans with sometime=comment.submit_date|timesince %}{{ sometime }} ago{% endblocktrans %}</small>
+    </p>
+    {% endif %}
+
+    {% comment_thread comment %}
+    
+    {% if not comment.is_removed and comment.is_public or request.user.is_staff %}</div>{% endif %}
+    {% endeditable %}
+</div>
+
+{% endfor %}
+
+{% if no_comments %}
+<p>{% trans "There are currently no comments" %}</p>
+{% endif %}
+

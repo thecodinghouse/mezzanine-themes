@@ -1,0 +1,27 @@
+{% load i18n mezzanine_tags comment_tags %}
+<div id="comments">
+<h3>{% trans "Comments" %}</h3>
+{% if settings.COMMENTS_DISQUS_SHORTNAME %}
+{% include "generic/includes/disqus_comments.html" %}
+{% else %}
+<script>
+$(function() {
+    $('.reply').click(function() {
+        $('.comment-reply-form').hide();
+        $(this).siblings('.comment-reply-form').toggle();
+    });
+});
+</script>
+<style>.input_id_honeypot {display:none !important;}</style>
+{% comment_thread object_for_comments %}
+<h3>{% trans "New Comment" %}</h3>
+
+    {% if not request.POST.replied_to %}
+		{% include "generic/includes/comment_form.html" with comment_form=posted_comment_form %}
+    {% else %}
+    {{% include "generic/includes/comment_form.html" with comment_form=unposted_comment_form %}
+    {% endif %}
+    
+
+{% endif %}
+</div>

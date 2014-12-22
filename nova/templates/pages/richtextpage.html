@@ -1,0 +1,30 @@
+{% extends "pages/page.html" %}
+
+{% load mezzanine_tags %}
+{% block left_wrapper %}
+{% endblock %}
+
+<div class="span{% block main_col_size %}8{% endblock %}">
+{% block main %}{{ block.super }}
+
+{% editable page.richtextpage.content %}
+{{ page.richtextpage.content|richtext_filters|safe }}
+{% endeditable %}
+
+{% endblock %}
+</div>
+
+{% block right_wrapper %}
+
+<aside class="span{% block right_col_size %}4{% endblock %} {% block right_class %}right{% endblock %}">
+    {% nevercache %}
+    {% include "includes/user_panel.html" %}
+    {% endnevercache %}
+ 
+    {% block right_panel %}
+    {{block.super}}
+	{% endblock %}
+    
+	</aside>
+
+{% endblock %}
