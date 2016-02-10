@@ -2,7 +2,7 @@
 
 ### Free themes for Mezzanine CMS.
 
- [demo](http://thecodinghouse.in/themes/)
+
 
 This is a mezzanine project which contains free mezzanine themes(flat/nova/solid/moderna).
 
