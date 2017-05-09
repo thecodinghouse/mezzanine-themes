@@ -137,12 +137,6 @@ USE_I18N = False
 #   * Receive x-headers
 INTERNAL_IPS = ("127.0.0.1",)
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    "django.template.loaders.filesystem.Loader",
-    "django.template.loaders.app_directories.Loader",
-)
-
 AUTHENTICATION_BACKENDS = ("mezzanine.core.auth_backends.MezzanineBackend",)
 
 # List of finder classes that know how to find static files in
@@ -150,7 +144,7 @@ AUTHENTICATION_BACKENDS = ("mezzanine.core.auth_backends.MezzanineBackend",)
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # The numeric mode to set newly-uploaded files to. The value should be
@@ -223,7 +217,40 @@ ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
 # or "C:/www/django/templates".
 # Always use forward slashes, even on Windows.
 # Don't forget to use absolute paths, not relative paths.
-TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, "templates"),)
+TEMPLATES = [
+     {
+         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+         'DIRS': [
+             # insert your TEMPLATE_DIRS here
+             os.path.join(PROJECT_ROOT, "templates"),
+         ],
+         'OPTIONS': {
+             'context_processors': [
+                 # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
+                 # list if you haven't customized them:
+                 'django.contrib.auth.context_processors.auth',
+                 'django.template.context_processors.debug',
+                 'django.template.context_processors.i18n',
+                 'django.template.context_processors.media',
+                 'django.template.context_processors.request',
+                 'django.template.context_processors.static',
+                 'django.template.context_processors.tz',
+                 'django.contrib.messages.context_processors.messages',
+                 'mezzanine.pages.context_processors.page',
+                 "mezzanine.conf.context_processors.settings",
+                 "mezzanine.pages.context_processors.page",
+             ],
+             'loaders': [
+                 # insert your TEMPLATE_LOADERS here
+                 "django.template.loaders.filesystem.Loader",
+                 "django.template.loaders.app_directories.Loader",
+             ],
+             'builtins': [
+                 'mezzanine.template.loader_tags',
+             ]
+         },
+     },
+ ]
 
 
 ################
@@ -231,10 +258,10 @@ TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, "templates"),)
 ################
 
 INSTALLED_APPS = (
-	"flat",
-	#"moderna",
-	#"nova",
-	#"solid",
+    "flat",
+    #"moderna",
+    #"nova",
+    #"solid",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -254,22 +281,6 @@ INSTALLED_APPS = (
     "mezzanine.twitter",
     #"mezzanine.accounts",
     #"mezzanine.mobile",
-)
-
-# List of processors used by RequestContext to populate the context.
-# Each one should be a callable that takes the request object as its
-# only parameter and returns a dictionary to add to the context.
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.contrib.messages.context_processors.messages",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.static",
-    "django.core.context_processors.media",
-    "django.core.context_processors.request",
-    "django.core.context_processors.tz",
-    "mezzanine.conf.context_processors.settings",
-    "mezzanine.pages.context_processors.page",
 )
 
 # List of middleware classes to use. Order is important; in the request phase,
